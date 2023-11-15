@@ -11,7 +11,7 @@ docker run --rm --publish 8080:8080 namesday
 
 To show this days namesday
 ```
-curl http://localhost:8080today
+curl http://localhost:8080/today
 ```
 
 
