@@ -1,49 +1,50 @@
+'''Small script to convert months to a json file'''
+
 import json
 import os
 
-
 def write_to_file(json_result):
-    file = "../app/namnsdagar.json"
+    file = "app/namnsdagar.json"
 
     if os.path.isfile(file):
         os.remove(file)
 
-    f = open(file, "w")
-    f.write(json_result)
-    f.close()
+    with open(file, "w", encoding="utf-8") as to_file:
+        to_file.write(json_result)
 
 
 def translate_month(input_month):
+    month = ''
     match input_month:
         case 'januari':
-            return "January"
+            month = "January"
         case 'februari':
-            return "February"
+            month = "February"
         case 'mars':
-            return "March"
+            month = "March"
         case 'april':
-            return "April"
+            month = "April"
         case 'maj':
-            return "May"
+            month = "May"
         case 'juni':
-            return "June"
+            month = "June"
         case 'juli':
-            return "July"
+            month = "July"
         case 'augusti':
-            return "August"
+            month = "August"
         case 'september':
-            return "September"
+            month = "September"
         case 'oktober':
-            return "October"
+            month = "October"
         case 'november':
-            return "November"
+            month = "November"
         case 'december':
-            return "December"
-
+            month = "December"
+    return month
 
 def catch_data():
-    path = '../months'
-    months = [f for f in os.listdir(path)]
+    path = 'months/'
+    months = list(os.listdir(path))
 
     month_data = {}
 
@@ -64,7 +65,7 @@ def catch_data():
                 "day": day_number,
                 "names": names
             })
-
+        print(f"{month} has been converted into json")
     result = {"data": formatted_data}
 
     json_result = json.dumps(result, indent=2, ensure_ascii=False)
@@ -73,3 +74,4 @@ def catch_data():
 
 if __name__ == "__main__":
     catch_data()
+    print("### Script executed ###")
