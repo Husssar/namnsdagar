@@ -23,6 +23,6 @@ curl http://localhost:8080/all
 ## Example
 ```
 curl http://localhost:8080/today
- 
+ ```
 {"Day":15,"Month":"November","namesday":"Leopold"}
-```
+
