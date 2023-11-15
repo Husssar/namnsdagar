@@ -1,3 +1,4 @@
+''' webserver script to show namesdays '''
 import calendar
 import datetime
 import json
@@ -16,24 +17,22 @@ def read_root():
 
 @app.get("/today")
 def namesday():
-    name = open('app/namnsdagar.json', 'r').read()
-    to_json = json.loads(name)
-    date_now = datetime.datetime.now()
-    this_month = calendar.month_name[date_now.month]
-    this_day = date_now.day
-    today = [day for day in to_json['data'] if day['month'] == this_month and day['day'] == this_day]
+    with open('namesday/app/namnsdagar.json', 'r', encoding="utf-8") as name:
+        to_json = json.loads(name.read())
 
-    return {"Day": this_day, "Month": this_month, "namesday": today[0]['names']}
+    date_now = datetime.datetime.now()
+    month = calendar.month_name[date_now.month]
+    today = date_now.day
+    names = [day for day in to_json['data'] if day['month'] == month and day['day'] == today]
+
+    return {"Day": today, "Month": month, "namesday": names[0]['names']}
 
 
 @app.get("/all")
 def namesday_all():
-    name = open('app/namnsdagar.json', 'r').read()
-
-    return json.loads(name)
+    with open('namesday/app/namnsdagar.json', 'r', encoding="utf-8") as name:
+        return json.loads(name.read())
 
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=8080)
-
-
